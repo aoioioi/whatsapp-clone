@@ -11,7 +11,7 @@ import AttachmentIcon from '@material-ui/icons/AttachFile';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Message from './Message';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import MicIcon from '@material-ui/icons/Mic';
 import firebase from 'firebase';
 import getRecipientEmail from '../utils/getRecipientEmail';
@@ -50,6 +50,7 @@ function ChatScreen({ chat, messages }) {
         />
       ));
     } else {
+      // Enable SSR
       return JSON.parse(messages).map(message => (
         <Message
           key={message.id}
@@ -70,6 +71,7 @@ function ChatScreen({ chat, messages }) {
   function sendMessage(e) {
     e.preventDefault();
 
+    // Create last seen status and merge/concat into object
     db.collection('users').doc(user.uid).set({
       lastSeen: firebase.firestore.FieldValue.serverTimestamp()
     }, { merge: true });
@@ -133,12 +135,11 @@ function ChatScreen({ chat, messages }) {
       </MessageContainer>
       <InputContainer>
         <InputIconButton>
-          <InsertEmoticonIcon />
+          <MicIcon />
         </InputIconButton>
         <Input value={input} onChange={(e) => setInput(e.target.value)} />
-        <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
-        <InputIconButton>
-          <MicIcon />
+        <InputIconButton onClick={sendMessage} type="submit">
+          <SendRoundedIcon />
         </InputIconButton>
       </InputContainer>
     </Container>

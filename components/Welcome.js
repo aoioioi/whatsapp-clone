@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../firebase';
-import { Avatar } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-
 
 const doodles = [
   'https://doodleipsum.com/700/outline?i=a93d54c4c0a8118cdcec5640d21506c4',
@@ -33,7 +31,9 @@ function Welcome() {
       <HeaderContainer>
       </HeaderContainer>
       <GreetContainer>
-        {!mobileLandscape && <img src={shuffle(doodles)} alt="" />}
+        {!mobileLandscape && (
+          <img src={shuffle(doodles)} alt="" />
+        )}
         <h2>Welcome, {user.email}!</h2>
         <p>Start a new chat or click on a user to continue where you left off.</p>
       </GreetContainer>
@@ -60,7 +60,7 @@ const GreetContainer = styled.div`
 
   > img {
     max-width: 100%;
-    max-height: 450px;
+    max-height: 350px;
     height: auto;
   }
 
