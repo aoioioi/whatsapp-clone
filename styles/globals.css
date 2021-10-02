@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.colour-tester {
+  background-color: #cfe0c3;
+}

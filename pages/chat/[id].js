@@ -14,6 +14,9 @@ function Chat({ chat, messages }) {
       <Head>
         <title>Chat with {getRecipientEmail(chat.users, user)}</title>
       </Head>
+      <ChatContainerMobile>
+        <ChatScreen chat={chat} messages={messages} />
+      </ChatContainerMobile>
       <Sidebar />
       <ChatContainer>
         <ChatScreen chat={chat} messages={messages} />
@@ -26,9 +29,10 @@ export default Chat;
 
 export async function getServerSideProps(context) {
   const ref = db.collection('chats').doc(context.query.id);
-
+  // console.log('chats screen:', ref)
   // Prep the messages on server
   const messagesRes = await ref.collection('messages').orderBy('timestamp', 'asc').get();
+  // console.log('messages res:', messagesRes);
 
   const messages = messagesRes.docs.map(doc => ({
     // transform data into object
@@ -73,4 +77,18 @@ const ChatContainer = styled.div`
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+  @media (max-width: 577px) {
+    display: none;
+  }
+`;
+const ChatContainerMobile = styled.div`
+  display: none;
+  @media (max-width: 577px) {
+    background-color: #2e2e2e;
+    z-index: 400;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    display: block;
+  }
 `;

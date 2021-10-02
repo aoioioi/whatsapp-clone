@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
 import { Avatar, Button, IconButton } from '@material-ui/core'
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ChatIcon from '@material-ui/icons/Chat';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
+import HomeIcon from '@material-ui/icons/Home';
 import styled from 'styled-components';
 import * as EmailValidator from 'email-validator';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -42,26 +46,29 @@ function Sidebar() {
   return (
     <Container>
       <Header>
-        <UserAvatar src={user.photoURL} onClick={() => auth.signOut()} />
+        <UserAvatar
+          src={user.photoURL}
+          title="My Account"
+        />
         <IconsContainer>
-          <IconButton>
-            <ChatIcon />
-          </IconButton>
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
+          <SidebarIconButton>
+            <Link href='/'><HomeIcon /></Link>
+          </SidebarIconButton>
+          <SidebarIconButton onClick={() => auth.signOut()}>
+            <ExitToAppIcon />
+          </SidebarIconButton>
         </IconsContainer>
       </Header>
       <Search>
-        <SearchIcon />
+        <SearchIconLight />
         <SearchInput placeholder="Search chats" />
       </Search>
-      <SidebarButton onClick={createChat}>Start a new chat</SidebarButton>
-
+      <SidebarButton onClick={createChat}>
+        <ChatIcon />
+        Start new chat</SidebarButton>
       {chatsSnapshot?.docs.map((chat) => (
         <Chat key={chat.id} id={chat.id} users={chat.data().users} />
       ))}
-
     </Container>
   );
 }
@@ -69,10 +76,11 @@ function Sidebar() {
 export default Sidebar;
 
 const Container = styled.div`
+  background-color: #2e2e2e;
   flex: 0.45;
-  border-right: 1px solid whitesmoke;
+  border-right: 1px solid #444;
   height: 100vh;
-  min-width: 300px;
+  min-width: 210px;
   max-width: 350px;
   overflow-y: scroll;
   ::-webkit-scrollbar {
@@ -80,18 +88,25 @@ const Container = styled.div`
   }
   --ms-overflow-style: none;
   scrollbar-width: none;
+  @media (max-width: 577px) {
+    flex: 1;
+    max-width: 100vw;
+  }
 `;
 const Header = styled.div`
   display: flex;
   position: sticky;
   top: 0;
-  background-color: white;
+  background-color: #2e2e2e;
   z-index: 1;
   justify-content: space-between;
   align-items: center;
   padding: 15px;
   height: 80px;
-  border-bottom: 1px solid whitesmoke;
+  border-bottom: 1px solid #444;
+  @media (max-width: 577px) {
+    height: 65px;
+  }
 `;
 const UserAvatar = styled(Avatar)`
   cursor: pointer;
@@ -100,23 +115,53 @@ const UserAvatar = styled(Avatar)`
   };
 `;
 const IconsContainer = styled.div``;
+const SidebarIconButton = styled(IconButton)`
+  &&& {
+    color: gainsboro;
+    :hover {
+    background-color: #333;
+    }
+  }
+
+  @media (max-width: 577px) {
+    > svg {
+      font-size: 1.2rem;
+    }
+  }
+`;
 const Search = styled.div`
   display: flex;
   align-items: center;
   padding: 20px;
-  border-radius: 3px;`;
+  border-radius: 3px;
+`;
+const SearchIconLight = styled(SearchIcon)`
+  color: gainsboro;
+`;
 const SearchInput = styled.input`
+  background-color: #2e2e2e;
+  color: whitesmoke;
   outline: 0;
   border: none;
+  padding: 0 10px;
   flex: 1;
 `;
 const SidebarButton = styled(Button)`
   width: 100%;
   font-style: upper;
-  // Increase rule priority over Material
+  height: 3.5rem;
+  // Bump up rule specificity over Material
   &&& {
-    border-top: 1px solid whitesmoke;
-    border-bottom: 1px solid whitesmoke;
+    font-weight: bold;
+    border-radius: 0;
+    background-color: #367236;
+    color: gainsboro;
+    :hover {
+      background-color: #2f642f;
+    }
   }
 
+  svg {
+    margin-right: 10px;
+  }
 `;

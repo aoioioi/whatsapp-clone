@@ -39,13 +39,15 @@ export default Chat;
 const Container = styled.div`
   display: flex;
   align-items: center;
+  color: gainsboro;
+  /* height: 60px; */
   cursor: pointer;
-  padding: 15px;
+  padding: 10px 15px;
   // split word over multiple lines (?)
   word-break: break-word;
 
   :hover {
-    background-color: #e9eaeb;
+    background-color: #333;
   }
 `;
 const UserAvatar = styled(Avatar)`

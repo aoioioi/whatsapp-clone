@@ -1,22 +1,20 @@
 import Head from 'next/head';
-// import { Circle } from 'better-react-spinkit';
-
+import styled from 'styled-components';
 
 function Loading() {
   return (
-    <center style={{ display: 'grid', placeItems: 'center', height: '100vh' }}>
+    <center style={{ display: 'grid', placeItems: 'center', height: '100vh', background: '#2e2e2e' }}>
       <Head>
         <title>Loading...</title>
       </Head>
       <div>
         <img
-          src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ficons.iconarchive.com%2Ficons%2Fdtafalonso%2Fandroid-l%2F512%2FWhatsApp-icon.png&f=1&nofb=1"
+          src="https://icons.iconarchive.com/icons/dtafalonso/android-l/512/WhatsApp-icon.png"
           alt=""
           style={{ marginBottom: '10px' }}
           height={200}
         />
-        <h3>Loading...</h3>
-        {/* <Circle color="#3CBC28" size={60} /> */}
+        <h3 style={{ color: 'gainsboro', fontWeight: 'normal' }}>Loading...</h3>
       </div>
     </center>
   )
