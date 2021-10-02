@@ -16,7 +16,7 @@ function Login() {
       </Head>
       <LoginContainer>
         <Logo src="https://icons.iconarchive.com/icons/dtafalonso/android-l/512/WhatsApp-icon.png" />
-        <LoginButton onClick={signIn} variant="outlined">Sign in with Google</LoginButton>
+        <LoginButton onClick={signIn}>Sign in with Google</LoginButton>
       </LoginContainer>
     </Container>
   );
@@ -55,10 +55,12 @@ const Logo = styled.img`
 `;
 const LoginButton = styled(Button)`
   &&& {
+    padding: .7rem 1.2rem;
+    font-weight: bold;
     color: gainsboro;
     border: 1px solid gainsboro;
     :hover {
-      background-color: #333;
+      opacity: .7;
     }
   }
 `;
