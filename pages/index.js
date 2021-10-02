@@ -1,12 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import Sidebar from '../components/Sidebar';
 import Welcome from '../components/Welcome';
 
-import styled from 'styled-components';
-
-import { auth, db } from '../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { db } from '../firebase';
 
 export default function Home() {
   return (
@@ -22,27 +19,17 @@ export default function Home() {
   );
 }
 
-// add user auth to pull up only their contacts from db
 export async function getServerSideProps() {
   const ref = await db.collection('chats').get();
 
-  // console.log('chats ref:', ref);
-  // alternative method, do for loop as in full-app api.js
   const chats = ref.docs
     .map(doc => (doc.data()))
     .map(chats => ({
-      loggedInUser: chats.users[0],
-      userContact: chats.users[1]
+      userLoggedIn: chats.users[0],
+      recipientEmail: chats.users[1]
     }));
-  console.log('chats:', chats)
-  console.log(chats[2].userContact)
 
   return {
     props: {}
   };
 }
-
-const SidebarIndex = styled(Sidebar)`
-&&& {
-  border-right: 0 !important; }
-`;

@@ -50,7 +50,6 @@ function ChatScreen({ chat, messages }) {
         />
       ));
     } else {
-      // Enable SSR
       return JSON.parse(messages).map(message => (
         <Message
           key={message.id}
@@ -71,7 +70,6 @@ function ChatScreen({ chat, messages }) {
   function sendMessage(e) {
     e.preventDefault();
 
-    // Create last seen status and merge/concat into object
     db.collection('users').doc(user.uid).set({
       lastSeen: firebase.firestore.FieldValue.serverTimestamp()
     }, { merge: true });

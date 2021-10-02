@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { Avatar, Button, IconButton } from '@material-ui/core'
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ChatIcon from '@material-ui/icons/Chat';
 import SearchIcon from '@material-ui/icons/Search';
@@ -22,7 +20,6 @@ function Sidebar() {
   function createChat() {
     const input = prompt('Enter the email address of the user you want to chat with:');
 
-    // Exit if falsy
     if (!input) return null;
 
     if (
@@ -30,7 +27,6 @@ function Sidebar() {
       !chatAlreadyExists(input) &&
       input !== user.email
     ) {
-      // Add chat to db in firestore with logged in user and recipient email
       db.collection('chats').add({
         users: [user.email, input],
       })
@@ -38,8 +34,6 @@ function Sidebar() {
   }
 
   function chatAlreadyExists(recipientEmail) {
-    // ?optional chaining. return element or falsy, use for asyncs
-    // !! if truthy then true, if falsy then false
     return !!chatsSnapshot?.docs.find(chat => chat.data().users.find(user => user === recipientEmail)?.length > 0);
   }
 
@@ -150,7 +144,7 @@ const SidebarButton = styled(Button)`
   width: 100%;
   font-style: upper;
   height: 3.5rem;
-  // Bump up rule specificity over Material
+
   &&& {
     font-weight: bold;
     border-radius: 0;

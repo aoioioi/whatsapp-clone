@@ -1,4 +1,3 @@
-// use date-fns instead (!)
 import moment from 'moment';
 import styled from 'styled-components';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -7,7 +6,6 @@ import { auth } from '../firebase';
 
 function Message({ user, message }) {
   const [userLoggedIn] = useAuthState(auth);
-  // console.log('userLoggedIn', userLoggedIn)
   const TypeOfMessage = user === userLoggedIn.email ? Sender : Receiver;
 
   return (

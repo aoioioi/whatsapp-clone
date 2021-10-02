@@ -17,8 +17,6 @@ function Chat({ id, users }) {
     router.push(`/chat/${id}`)
   }
 
-  // Get all data from user with matched email if it exists
-  // data() returns all data
   const recipient = recipentSnapshot?.docs?.[0]?.data();
   const recipientEmail = getRecipientEmail(users, user);
 
@@ -40,10 +38,8 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   color: gainsboro;
-  /* height: 60px; */
   cursor: pointer;
   padding: 10px 15px;
-  // split word over multiple lines (?)
   word-break: break-word;
 
   :hover {

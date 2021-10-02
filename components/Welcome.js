@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../firebase';
-import { Avatar, IconButton } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 
@@ -25,7 +25,6 @@ function shuffle(arr) {
 
 function Welcome() {
   const [user] = useAuthState(auth);
-  console.log(user);
 
   const mobileLandscape = useMediaQuery('(max-height: 500px)');
 
@@ -45,7 +44,6 @@ function Welcome() {
 export default Welcome;
 
 const Container = styled.div`
-/* border-left: 1px solid #444; */
   flex: 1;
   @media (max-width: 577px) {
     display: none;
@@ -71,10 +69,4 @@ const GreetContainer = styled.div`
     border-radius: 8px;
     padding: 20px;
   }
-`;
-const UserAvatar = styled(Avatar)`
-  cursor: pointer;
-  :hover {
-    opacity: 0.8;
-  };
 `;

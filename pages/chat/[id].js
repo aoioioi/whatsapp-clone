@@ -29,32 +29,23 @@ export default Chat;
 
 export async function getServerSideProps(context) {
   const ref = db.collection('chats').doc(context.query.id);
-  // console.log('chats screen:', ref)
-  // Prep the messages on server
+
   const messagesRes = await ref.collection('messages').orderBy('timestamp', 'asc').get();
-  // console.log('messages res:', messagesRes);
 
   const messages = messagesRes.docs.map(doc => ({
-    // transform data into object
     id: doc.id,
     ...doc.data()
   })).map(messages => ({
-    // then add timestamp to our newly made object
-    // toDate func provided by firebase
-    // getTime is UNIX timestamp
     ...messages,
     timestamp: messages.timestamp.toDate().getTime()
   }));
 
-  // Prep chats
   const chatRes = await ref.get();
-  // Grab id and spread rest of data
+
   const chat = {
     id: chatRes.id,
     ...chatRes.data()
   };
-
-  console.log('SSR in action:', chat, messages);
 
   return {
     props: {

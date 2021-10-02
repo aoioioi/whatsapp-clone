@@ -9,7 +9,6 @@ const firebaseConfig = {
   appId: "1:1029813178538:web:652c67da225c48939e00d3"
 };
 
-// Initialise firebase app if not initialised
 const app = !firebase.apps.length
   ? firebase.initializeApp(firebaseConfig)
   : firebase.app();
