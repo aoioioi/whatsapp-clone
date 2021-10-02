@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 
-
 function Message({ user, message }) {
   const [userLoggedIn] = useAuthState(auth);
   const TypeOfMessage = user === userLoggedIn.email ? Sender : Receiver;
@@ -26,6 +25,7 @@ const Container = styled.div``;
 const MessageElement = styled.p`
   width: fit-content;
   padding: 7px 15px;
+  min-height: 52px;
   padding-right: 10px;
   border-radius: 8px;
   margin: 10px;
