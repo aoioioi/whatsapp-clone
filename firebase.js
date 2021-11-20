@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBCJKA9agpPawKFa7o2tIWO5PqKO9e1C30",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "whatsappchats-8639b.firebaseapp.com",
   projectId: "whatsappchats-8639b",
   storageBucket: "whatsappchats-8639b.appspot.com",
