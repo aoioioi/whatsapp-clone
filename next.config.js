@@ -1,6 +1,6 @@
 module.exports = {
   reactStrictMode: true,
   env: {
-    FIREBASE_API_KEY: process.env.FIREBASE_APIKEY,
+    firebase_api_key: process.env.FIREBASE_API_KEY,
   }
 }
